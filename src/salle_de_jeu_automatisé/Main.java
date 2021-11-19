@@ -11,7 +11,7 @@ public class Main {
 
 	static String valider = "";
 	static int choix;
-
+//menu
 	public static void menu() {
 		System.out.println("Voila la liste des jeux disponibles :");
 		System.out.println("Football : \n 1 - FIFA \n 2 - PES ");
