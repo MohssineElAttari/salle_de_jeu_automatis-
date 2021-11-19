@@ -1,4 +1,4 @@
-package salle_de_jeu_automatisé;
+package com.play;
 
 import java.util.Scanner;
 
