@@ -80,9 +80,9 @@ public class Main {
 		newValue.add(nom);
 
 		System.out.println("3 - N° de poste libre : ");
-		String nPostLS = sc.nextLine();
-		int nPostL = Integer.parseInt(nPostLS);
-		newValue.add(String.valueOf(nPostL));
+		int choix=valideChoix();
+		//int nPostL = Integer.parseInt(choix);
+		newValue.add(String.valueOf(choix));
 
 		System.out.println("4 - Heure de début (ex:09:40 ...) : ");
 		String heureD = sc.nextLine();
