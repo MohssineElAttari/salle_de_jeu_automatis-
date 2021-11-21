@@ -7,12 +7,12 @@ public class Main {
 //update
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//menu();
+		// menu();
 		addNewGamer();
 	}
 
-	static ArrayList<String> newValue = new ArrayList<String>();
-	static ArrayList<ArrayList<String>> PersonList = new ArrayList<ArrayList<String>>();
+	static ArrayList<String> newValue;
+	static ArrayList<ArrayList<String>> personList = new ArrayList<ArrayList<String>>();
 
 	static String valider = "";
 	static int choix;
@@ -67,43 +67,62 @@ public class Main {
 	}
 
 	public static void addNewGamer() {
-		Scanner sc = new Scanner(System.in);
+		String reponse;
+		int reponse1;
+		do {
+			Scanner sc = new Scanner(System.in);
+			System.out.println(personList);
+			newValue = new ArrayList<String>();
+			System.out.println(personList);
 
-		System.out.println("***** ajouter au nouveux joueur *****");
+			System.out.println("***** ajouter au nouveux joueur *****");
 
-		System.out.println("1 - Prénom : ");
-		String prenom = sc.nextLine();
-		newValue.add(prenom);
+			System.out.println("1 - Prénom : ");
+			String prenom = sc.nextLine();
+			newValue.add(prenom);
 
-		System.out.println("2 - Nom : ");
-		String nom = sc.nextLine();
-		newValue.add(nom);
+			System.out.println("2 - Nom : ");
+			String nom = sc.nextLine();
+			newValue.add(nom);
 
-		System.out.println("3 - N° de poste libre : ");
-		int choix=valideChoix();
-		//int nPostL = Integer.parseInt(choix);
-		newValue.add(String.valueOf(choix));
+			System.out.println("3 - N° de poste libre : ");
+			int choix = valideChoix();
+			// int nPostL = Integer.parseInt(choix);
+			newValue.add(String.valueOf(choix));
 
-		System.out.println("4 - Heure de début (ex:09:40 ...) : ");
-		String heureD = sc.nextLine();
-		newValue.add(heureD);
+			System.out.println("4 - Heure de début (ex:09:40 ...) : ");
+			String heureD = sc.nextLine();
+			newValue.add(heureD);
 
-		System.out.println("5 - Période horaire : ");
-		
-		String PeriodeHoraire = choixDuree(menulistDuree());
-		newValue.add(PeriodeHoraire);
+			System.out.println("5 - Période horaire : ");
+			int choixDuree = menulistDuree();
+			String PeriodeHoraire = choixDuree(choixDuree);
+			newValue.add(PeriodeHoraire);
 
-		System.out.println("6 - le jeu choisi : ");
-		String jeuChoisi = choixJeu(menuDesJeux());
+			System.out.println("6 - le jeu choisi : ");
+			String jeuChoisi = choixJeu(menuDesJeux());
 
-		newValue.add(jeuChoisi);
-		comp++;
-		int codeJoueur =  nom.charAt(0) + comp;
+			newValue.add(jeuChoisi);
+			comp++;
+			String codeJoueur = nom + comp;
+			// System.out.println(nom.charAt(0));
 
-		newValue.add(String.valueOf(codeJoueur));
-		PersonList.add(newValue);
+			newValue.add(String.valueOf(codeJoueur));
 
-		System.out.println(PersonList);
+			personList.add(newValue);
+			System.out.println(personList);
+			payMontant(choixDuree);
+			String autreJoueur;
+			System.out.println("tu veux ajouter nouveau joueur ==> repondre par oui ou non");
+
+			reponse = sc.next();
+			reponse1 = Integer.parseInt(reponse);
+
+			System.out.println(reponse1);
+			System.out.println(reponse1 == 1);
+
+		} while (reponse1 == 1);
+		System.out.println("ok");
 	}
 
 //menu des jeux disponibles
