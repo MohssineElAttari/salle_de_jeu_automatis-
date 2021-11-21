@@ -67,6 +67,9 @@ public class Main {
 	}
 
 	public static void addNewGamer() {
+		String reponse;
+		int reponse1;
+		do {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("***** ajouter au nouveux joueur *****");
@@ -89,8 +92,8 @@ public class Main {
 		newValue.add(heureD);
 
 		System.out.println("5 - Période horaire : ");
-		
-		String PeriodeHoraire = choixDuree(menulistDuree());
+		int choixDuree = menulistDuree();
+		String PeriodeHoraire = choixDuree(choixDuree);
 		newValue.add(PeriodeHoraire);
 
 		System.out.println("6 - le jeu choisi : ");
@@ -98,12 +101,22 @@ public class Main {
 
 		newValue.add(jeuChoisi);
 		comp++;
-		int codeJoueur =  nom.charAt(0) + comp;
+		String codeJoueur =  nom + comp ;
+		//System.out.println(nom.charAt(0));
 
 		newValue.add(String.valueOf(codeJoueur));
 		PersonList.add(newValue);
-
 		System.out.println(PersonList);
+		payMontant(choixDuree);
+		String autreJoueur;
+		System.out.println("tu veux ajouter nouveau joueur ==> repondre par oui ou non");
+		 reponse = sc.next();
+		  reponse1 = Integer.parseInt(reponse);
+		 System.out.println(reponse1);
+		 System.out.println(reponse1 == 1);
+		newValue.clear();
+		}while(reponse1 == 1);
+		System.out.println("ok");
 	}
 
 //menu des jeux disponibles
