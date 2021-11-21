@@ -50,6 +50,7 @@ public class Main {
 		return nombre;
 		
 	}
+	//fonction pour verifier lorsque le nombre choisie trouver dans la liste des durées ou non
 	public static int valideDuree(int nombre) {
 		if (nombre <= 0 || nombre > 5) {
 			System.out.println("Cette durée n'est pas disponible");
@@ -58,10 +59,7 @@ public class Main {
 		else {
 			System.out.println("DONE");
 			payMontant(nombre);
-			int choixDureeFinal = nombre;
-			 
-			
-			
+			int choixDureeFinal = nombre;	
 			
 		}
 		return nombre;
@@ -90,7 +88,7 @@ public class Main {
 	public static void nvJoueur(String typejeux, int duree) {
 		
 	}
-	
+	//fonction permet de determiner le prix de chaque durée
 	public static int payMontant(int nombre) {
 		switch (nombre) {
 		case 1:
@@ -112,7 +110,6 @@ public class Main {
 		return choix;
 		
 	}
-	
 
 
 }
