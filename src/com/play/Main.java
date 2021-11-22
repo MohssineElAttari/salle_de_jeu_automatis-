@@ -4,14 +4,54 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+
+	static String[] posts = { "POSTE 1:Xbox", "POSTE 2:Xbox", "POSTE 3:Xbox", "POSTE 4:PS5", "POSTE 5:PS5", "POSTE 6:Nintendo",
+			"POSTE 7:Nintendo" };
+
+	static Boolean[] postsAvailibility = { true, true, true, true, true, true, true, };
+
+	static String[] gamesByPost = { "FIFA:PES 2020", "Tarazan:PES 2020:Counter-Strike", "FIFA", "FIFA:Counter-Strike",
+			"PES 2020:Counter-Strike", "FIFA:Counter-Strike", "PES 2020:Counter-Strike" };
+
+	static int postsAvailable[] = new int[6];
+	static int cmp = 0;
+
+	
+	String[][] players = { { "code_1", "", "", "", "", "" }, { "code_1", "", "", "", "", "" } };
+
 //update
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// menu();
+		
+		
+		for(
+				int index = 0;index<gamesByPost.length;index++)
+				{
+
+					if (gamesByPost[index].contains("PES 2020")) {
+						postsAvailable[cmp] = index;
+						cmp++;
+						System.out.println("Found at " + posts[index]);
+
+					}
+
+				}
+
+				System.out.println("");
+
+				for(
+				int index = 0;index<cmp;index++)
+				{
+					System.out.println("Found at " + postsAvailable[index]);
+
+				}
+
+		
 		addNewGamer();
 	}
 
-	static ArrayList<String> newValue;
+	public static ArrayList<String> newValue;
 	static ArrayList<ArrayList<String>> personList = new ArrayList<ArrayList<String>>();
 
 	static String valider = "";
