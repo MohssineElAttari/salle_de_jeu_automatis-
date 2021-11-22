@@ -25,7 +25,7 @@ public class Main {
 			if (gamesByPost[index].contains(nameGame)) {
 				postsAvailable[cmp] = index;
 				cmp++;
-				System.out.println("Found at " + posts[index]);
+				//System.out.println("Found at " + posts[index]);
 			}
 		}
 		return postsAvailable;
@@ -126,9 +126,9 @@ public class Main {
 		int reponse1;
 		do {
 			Scanner sc = new Scanner(System.in);
-			System.out.println(personList);
+			//System.out.println(personList);
 			newValue = new ArrayList<String>();
-			System.out.println(personList);
+			//System.out.println(personList);
 
 			System.out.println("***** ajouter au nouveux joueur *****");
 
@@ -140,10 +140,10 @@ public class Main {
 			String nom = sc.nextLine();
 			newValue.add(nom);
 
-			System.out.println("3 - N° de poste libre : ");
-			int choix = valideChoix();
+			//System.out.println("3 - N° de poste libre : ");
+			//int choix = valideChoix();
 			// int nPostL = Integer.parseInt(choix);
-			newValue.add(String.valueOf(choix));
+			
 
 			System.out.println("4 - Heure de début (ex:09:40 ...) : ");
 			String heureD = sc.nextLine();
@@ -159,8 +159,9 @@ public class Main {
 
 			int array[] = getindexPost(jeuChoisi);
 			int indexPostD = postDispo(array);
-			//System.out.println(indexPostD);
-
+			newValue.add(posts[indexPostD]);
+			System.out.println(posts[indexPostD] + " effectuee par le joueur" + prenom);
+			
 			newValue.add(jeuChoisi);
 			comp++;
 			String codeJoueur = nom + comp;
