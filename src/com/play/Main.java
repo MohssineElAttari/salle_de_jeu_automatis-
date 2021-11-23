@@ -1,5 +1,6 @@
 package com.play;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,9 +13,10 @@ public class Main {
 
 	static String[] gamesByPost = { "FIFA:PES 2020", "Tarazan:PES 2020:Counter-Strike", "FIFA", "FIFA:Counter-Strike",
 			"PES 2020:Counter-Strike", "FIFA:Counter-Strike", "PES 2020:Counter-Strike" };
-
+	public static ArrayList<String> dureePost;
+	static ArrayList<ArrayList<String>> listDureePost = new ArrayList<ArrayList<String>>();
 	static int postsAvailable[] = new int[7];
-	static int cmp ;
+	static int cmp;
 
 	public static ArrayList<String> newValue;
 	static ArrayList<ArrayList<String>> personList = new ArrayList<ArrayList<String>>();
@@ -25,7 +27,7 @@ public class Main {
 			if (gamesByPost[index].contains(nameGame)) {
 				postsAvailable[cmp] = index;
 				cmp++;
-				//System.out.println("Found at " + posts[index]);
+				// System.out.println("Found at " + posts[index]);
 			}
 		}
 		return postsAvailable;
@@ -36,30 +38,24 @@ public class Main {
 		for (int index = 0; index < postsAvailable.length; index++) {
 			if (postsAvailibility[postsAvailable[index]] == true) {
 				postDispo = postsAvailable[index];
-				//System.out.println(postsAvailibility[postsAvailable[index]]);
+				// System.out.println(postsAvailibility[postsAvailable[index]]);
 				postsAvailibility[postsAvailable[index]] = false;
-				//postsAvailable = new int[7];
-				//System.out.pr
-				//System.out.print(postDispo);
+				// postsAvailable = new int[7];
+				// System.out.pr
+				// System.out.print(postDispo);
 				return postDispo;
-
-			}else {
+			} else {
 				System.out.println(posts[postsAvailable[index]] + " ce post est n'est pas disponible");
 			}
-			
-			
+
 		}
 		return postDispo;
-		
 
 	}
 
 //update
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
-		//menu();
-=======
 		// menu();
 
 		System.out.println("");
@@ -69,12 +65,8 @@ public class Main {
 
 		}
 
->>>>>>> 220dfdad7ed01094f1dd85f911638de89eeb2342
 		addNewGamer();
 	}
-
-	static ArrayList<String> newValue = new ArrayList<String>();
-	static ArrayList<ArrayList<String>> PersonList = new ArrayList<ArrayList<String>>();
 
 	static String valider = "";
 	static int choix;
@@ -104,23 +96,23 @@ public class Main {
 		return nomJeux;
 	}
 
-	public static String choixDuree(int choix) {
-		String duree = "";
+	public static int choixDuree(int choix) {
+		int duree = 0;
 		switch (choix) {
 		case 1:
-			duree = "30 min";
+			duree = 30;
 			break;
 		case 2:
-			duree = "1 heure";
+			duree = 1 * 60;
 			break;
 		case 3:
-			duree = "2 heures";
+			duree = 2 * 60;
 			break;
 		case 4:
-			duree = "5 heures";
+			duree = 5 * 60;
 			break;
 		case 5:
-			duree = "joueur de luxe";
+			duree = 24 * 60;
 			break;
 		default:
 			break;
@@ -128,62 +120,42 @@ public class Main {
 		return duree;
 	}
 
+	public static void addPost(LocalTime heurD, LocalTime heurF, int indexPost) {
+		dureePost=new ArrayList<String>();
+		dureePost.add(heurD + "");
+		dureePost.add(heurF + "");
+		dureePost.add(indexPost + "");
+		listDureePost.add(dureePost);
+		System.out.println(listDureePost);
+	}
+
+	public static LocalTime heureFin(LocalTime heurD, int duree) {
+		System.out.println(heurD + " " + duree);
+		LocalTime hF = heurD.plusMinutes(duree);
+		System.out.println(hF);
+		return hF;
+
+	}
+
+	public static Boolean testHF(LocalTime hF) {
+		LocalTime startA = LocalTime.of(9, 00);
+		LocalTime stopA = LocalTime.of(12, 00);
+		LocalTime startB = LocalTime.of(2, 00);
+		LocalTime stopB = LocalTime.of(20, 00);
+		Boolean containsNow = (((!hF.isBefore(startA)) && (hF.isBefore(stopA)))
+				|| ((!hF.isBefore(startB)) && (hF.isBefore(stopB))));
+		return containsNow;
+
+	}
+
 	public static void addNewGamer() {
 		String reponse;
 		int reponse1;
 		do {
-<<<<<<< HEAD
-		Scanner sc = new Scanner(System.in);
-
-		System.out.println("***** ajouter au nouveux joueur *****");
-
-		System.out.println("1 - Prénom : ");
-		String prenom = sc.nextLine();
-		newValue.add(prenom);
-
-		System.out.println("2 - Nom : ");
-		String nom = sc.nextLine();
-		newValue.add(nom);
-
-		System.out.println("3 - N° de poste libre : ");
-		String nPostLS = sc.nextLine();
-		int nPostL = Integer.parseInt(nPostLS);
-		newValue.add(String.valueOf(nPostL));
-
-		System.out.println("4 - Heure de début (ex:09:40 ...) : ");
-		String heureD = sc.nextLine();
-		newValue.add(heureD);
-
-		System.out.println("5 - Période horaire : ");
-		int choixDuree = menulistDuree();
-		String PeriodeHoraire = choixDuree(choixDuree);
-		newValue.add(PeriodeHoraire);
-
-		System.out.println("6 - le jeu choisi : ");
-		String jeuChoisi = choixJeu(menuDesJeux());
-
-		newValue.add(jeuChoisi);
-		comp++;
-		String codeJoueur =  nom + comp ;
-		//System.out.println(nom.charAt(0));
-
-		newValue.add(String.valueOf(codeJoueur));
-		PersonList.add(newValue);
-		System.out.println(PersonList);
-		payMontant(choixDuree);
-		String autreJoueur;
-		System.out.println("tu veux ajouter nouveau joueur ==> repondre par 1=>oui ou 0=>non");
-		 reponse = sc.next();
-		  reponse1 = Integer.parseInt(reponse);
-		 System.out.println(reponse1);
-		 System.out.println(reponse1 == 1);
-		newValue.clear();
-		}while(reponse1 == 1);
-=======
 			Scanner sc = new Scanner(System.in);
-			//System.out.println(personList);
+			// System.out.println(personList);
 			newValue = new ArrayList<String>();
-			//System.out.println(personList);
+			// System.out.println(personList);
 
 			System.out.println("***** ajouter au nouveux joueur *****");
 
@@ -194,29 +166,38 @@ public class Main {
 			System.out.println("2 - Nom : ");
 			String nom = sc.nextLine();
 			newValue.add(nom);
-
-			//System.out.println("3 - N° de poste libre : ");
-			//int choix = valideChoix();
-			// int nPostL = Integer.parseInt(choix);
-			
-
-			System.out.println("4 - Heure de début (ex:09:40 ...) : ");
-			String heureD = sc.nextLine();
-			newValue.add(heureD);
-
-			System.out.println("5 - Période horaire : ");
-			int choixDuree = menulistDuree();
-			String PeriodeHoraire = choixDuree(choixDuree);
-			newValue.add(PeriodeHoraire);
-
 			System.out.println("6 - le jeu choisi : ");
 			String jeuChoisi = choixJeu(menuDesJeux());
-
 			int array[] = getindexPost(jeuChoisi);
 			int indexPostD = postDispo(array);
 			newValue.add(posts[indexPostD]);
-			System.out.println(posts[indexPostD] + " effectuee par le joueur" + prenom);
+			// System.out.println("3 - N° de poste libre : ");
+			// int choix = valideChoix();
+			// int nPostL = Integer.parseInt(choix);
+
+			System.out.println("4 - Entrer l'heure de début : ");
+			int heureD = sc.nextInt();
+			System.out.println("4 - Entrer les minutes de début : ");
+			int minD = sc.nextInt();
+			newValue.add(heureD + " : " + minD);
+			LocalTime heurD = LocalTime.of(heureD, minD);
+
+			System.out.println("5 - Période horaire : ");
+			int choixDuree = menulistDuree();
+			int PeriodeHoraire = choixDuree(choixDuree);
+			newValue.add(PeriodeHoraire + "");
+			LocalTime hF = heureFin(heurD, PeriodeHoraire);
+			boolean testHf = testHF(hF);
+			if(testHf) {
+				addPost(heurD,hF,indexPostD);
+			}
+			else {
+				System.out.println("la salle des jeu n'est pas disponible dans cette periode");
+			}
 			
+		
+			//System.out.println(posts[indexPostD] + " effectuee par le joueur " + prenom);
+
 			newValue.add(jeuChoisi);
 			comp++;
 			String codeJoueur = nom + comp;
@@ -237,7 +218,6 @@ public class Main {
 			System.out.println(reponse1 == 1);
 
 		} while (reponse1 == 1);
->>>>>>> 220dfdad7ed01094f1dd85f911638de89eeb2342
 		System.out.println("ok");
 	}
 
@@ -298,10 +278,6 @@ public class Main {
 			}
 		} while (valider == "null");
 		return choix;
-	}
-
-	public static void nvJoueur(String typejeux, int duree) {
-
 	}
 
 	public static int payMontant(int nombre) {
