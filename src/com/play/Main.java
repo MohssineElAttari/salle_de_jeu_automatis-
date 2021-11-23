@@ -39,7 +39,7 @@ public class Main {
 			if (postsAvailibility[postsAvailable[index]] == true) {
 				postDispo = postsAvailable[index];
 				// System.out.println(postsAvailibility[postsAvailable[index]]);
-				postsAvailibility[postsAvailable[index]] = false;
+				
 				// postsAvailable = new int[7];
 				// System.out.pr
 				// System.out.print(postDispo);
@@ -127,10 +127,11 @@ public class Main {
 		dureePost.add(indexPost + "");
 		listDureePost.add(dureePost);
 		System.out.println(listDureePost);
+		postsAvailibility[indexPost] = false;
+		
 	}
 
 	public static LocalTime heureFin(LocalTime heurD, int duree) {
-		System.out.println(heurD + " " + duree);
 		LocalTime hF = heurD.plusMinutes(duree);
 		System.out.println(hF);
 		return hF;
@@ -158,56 +159,46 @@ public class Main {
 			// System.out.println(personList);
 
 			System.out.println("***** ajouter au nouveux joueur *****");
-
-			System.out.println("1 - Prénom : ");
-			String prenom = sc.nextLine();
-			newValue.add(prenom);
-
-			System.out.println("2 - Nom : ");
-			String nom = sc.nextLine();
-			newValue.add(nom);
-			System.out.println("6 - le jeu choisi : ");
-			String jeuChoisi = choixJeu(menuDesJeux());
-			int array[] = getindexPost(jeuChoisi);
-			int indexPostD = postDispo(array);
-			newValue.add(posts[indexPostD]);
-			// System.out.println("3 - N° de poste libre : ");
-			// int choix = valideChoix();
-			// int nPostL = Integer.parseInt(choix);
-
-			System.out.println("4 - Entrer l'heure de début : ");
+			System.out.println("1 - Entrer l'heure de début : ");
 			int heureD = sc.nextInt();
-			System.out.println("4 - Entrer les minutes de début : ");
+			System.out.println("2 - Entrer les minutes de début : ");
 			int minD = sc.nextInt();
 			newValue.add(heureD + " : " + minD);
 			LocalTime heurD = LocalTime.of(heureD, minD);
-
-			System.out.println("5 - Période horaire : ");
+			System.out.println("3 - Période horaire : ");
 			int choixDuree = menulistDuree();
 			int PeriodeHoraire = choixDuree(choixDuree);
 			newValue.add(PeriodeHoraire + "");
+			System.out.println("6 - le jeu choisi : ");
+			String jeuChoisi = choixJeu(menuDesJeux());
+			newValue.add(jeuChoisi);
+			int array[] = getindexPost(jeuChoisi);
+			int indexPostD = postDispo(array);
+			newValue.add(posts[indexPostD]);
 			LocalTime hF = heureFin(heurD, PeriodeHoraire);
 			boolean testHf = testHF(hF);
 			if(testHf) {
 				addPost(heurD,hF,indexPostD);
 			}
 			else {
-				System.out.println("la salle des jeu n'est pas disponible dans cette periode");
+				System.out.println("la salle des jeux n'est pas disponible dans cette periode");
 			}
+			System.out.println("7 - Prénom : ");
+			String prenom = sc.next();
+			newValue.add(prenom);
+			System.out.println("8 - Nom : ");
+			String nom = sc.next();
+			newValue.add(nom);
+			System.out.println(posts[indexPostD] + " effectuee par le joueur " + prenom);
 			
-		
-			//System.out.println(posts[indexPostD] + " effectuee par le joueur " + prenom);
-
-			newValue.add(jeuChoisi);
 			comp++;
 			String codeJoueur = nom + comp;
-			// System.out.println(nom.charAt(0));
-
 			newValue.add(String.valueOf(codeJoueur));
-
 			personList.add(newValue);
 			System.out.println(personList);
-			payMontant(choixDuree);
+
+			
+			//payMontant(choixDuree);
 			String autreJoueur;
 			System.out.println("tu veux ajouter nouveau joueur ==> repondre par oui ou non");
 
