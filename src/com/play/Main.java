@@ -1,14 +1,20 @@
 package com.play;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main {
 
+
 	static String[] posts = { "POSTE 1:Xbox", "POSTE 2:Xbox", "POSTE 3:Xbox", "POSTE 4:PS5", "POSTE 5:PS5",
 			"POSTE 6:Nintendo", "POSTE 7:Nintendo" };
-
+	static LocalTime[] heureFin = new LocalTime[100];
+	static int heurff = 0;
+	
 	static Boolean[] postsAvailibility = { true, true, true, true, true, true, true };
 
 	static String[] gamesByPost = { "FIFA:PES 2020", "Tarazan:PES 2020:Counter-Strike", "FIFA", "FIFA:Counter-Strike",
@@ -57,8 +63,34 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// menu();
-
-		System.out.println("");
+		
+		Timer timer = new Timer();
+        int begin = 0;
+        int timeInterval = 1000;
+    	
+    	//System.out.println(dft.format(ldt));
+        timer.schedule(new TimerTask() {
+          //int counter = 0;
+           @Override
+           public void run() {
+        	  //System.out.println("ok");
+        	   int a = 1;
+        	   for(int i=0; i<heureFin.length; i++) {
+        		   LocalTime ldt = LocalTime.now();
+        	    	DateTimeFormatter dft = DateTimeFormatter.ofPattern("HH:mm");
+        	   if((ldt.format(dft)).equals(heureFin[i])) {
+        		   System.out.println("la duree de jeu est finit");
+        	   }
+        	   }
+        	   
+               //call the method
+               //counter++;
+               //if (counter >= 20){
+                // timer.cancel();
+               //}
+              // System.out.println("yep");
+           }
+        }, begin, timeInterval);
 
 		for (int index = 0; index < cmp; index++) {
 			System.out.println("Found at " + postsAvailable[index]);
@@ -131,6 +163,10 @@ public class Main {
 		listDureePost.add(dureePost);
 		System.out.println(listDureePost);
 		postsAvailibility[indexPost] = false;
+		heureFin[heurff] = heurF;
+		//System.out.println(heureFin[heurff]);
+		heurff++;
+	
 	}
 
 	public static LocalTime heureFin(LocalTime heurD, int duree) {
