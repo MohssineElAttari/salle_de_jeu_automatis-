@@ -119,6 +119,9 @@ public class Main {
 		}
 		return duree;
 	}
+	//public static void modifDisponibilite() {
+		
+	//}
 
 	public static void addPost(LocalTime heurD, LocalTime heurF, int indexPost) {
 		dureePost=new ArrayList<String>();
@@ -128,7 +131,6 @@ public class Main {
 		listDureePost.add(dureePost);
 		System.out.println(listDureePost);
 		postsAvailibility[indexPost] = false;
-		
 	}
 
 	public static LocalTime heureFin(LocalTime heurD, int duree) {
@@ -140,15 +142,17 @@ public class Main {
 
 	public static Boolean testHF(LocalTime hF) {
 		LocalTime startA = LocalTime.of(9, 00);
-		LocalTime stopA = LocalTime.of(12, 00);
-		LocalTime startB = LocalTime.of(2, 00);
-		LocalTime stopB = LocalTime.of(20, 00);
-		Boolean containsNow = (((!hF.isBefore(startA)) && (hF.isBefore(stopA)))
-				|| ((!hF.isBefore(startB)) && (hF.isBefore(stopB))));
+        LocalTime stopA = LocalTime.of(12, 01);
+        LocalTime startB = LocalTime.of(14, 00);
+        LocalTime stopB = LocalTime.of(20, 01);
+        Boolean containsNow = (((hF.isAfter(startA)) && (hF.isBefore(stopA)))
+                || ((hF.isAfter(startB)) && (hF.isBefore(stopB))));
+		System.out.println(containsNow);
 		return containsNow;
 
 	}
-
+	static boolean testHf;
+	static int indexPostD;
 	public static void addNewGamer() {
 		String reponse;
 		int reponse1;
@@ -159,6 +163,7 @@ public class Main {
 			// System.out.println(personList);
 
 			System.out.println("***** ajouter au nouveux joueur *****");
+			do {
 			System.out.println("1 - Entrer l'heure de début : ");
 			int heureD = sc.nextInt();
 			System.out.println("2 - Entrer les minutes de début : ");
@@ -176,13 +181,15 @@ public class Main {
 			int indexPostD = postDispo(array);
 			newValue.add(posts[indexPostD]);
 			LocalTime hF = heureFin(heurD, PeriodeHoraire);
-			boolean testHf = testHF(hF);
+			 testHf = testHF(hF);
 			if(testHf) {
 				addPost(heurD,hF,indexPostD);
 			}
 			else {
 				System.out.println("la salle des jeux n'est pas disponible dans cette periode");
+				newValue.clear();
 			}
+			}while(!testHf);
 			System.out.println("7 - Prénom : ");
 			String prenom = sc.next();
 			newValue.add(prenom);
