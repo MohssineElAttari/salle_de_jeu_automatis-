@@ -3,6 +3,10 @@ package com.play;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class Main {
 
@@ -129,13 +133,15 @@ public class Main {
 	}
 
 	public static Boolean testHF(LocalTime hF) {
+
 		LocalTime startA = LocalTime.of(9, 00);
-		LocalTime stopA = LocalTime.of(12, 00);
-		LocalTime startB = LocalTime.of(2, 00);
-		LocalTime stopB = LocalTime.of(20, 00);
-		
-		Boolean containsNow = (((!hF.isBefore(startA)) && (hF.isBefore(stopA)))
-				|| ((!hF.isBefore(startB)) && (hF.isBefore(stopB))));
+		LocalTime stopA = LocalTime.of(12, 01);
+		LocalTime startB = LocalTime.of(14, 00);
+		LocalTime stopB = LocalTime.of(20, 01);
+
+		Boolean containsNow = (((hF.isAfter(startA)) && (hF.isBefore(stopA)))
+				|| ((hF.isAfter(startB)) && (hF.isBefore(stopB))));
+
 		return containsNow;
 
 	}
@@ -169,11 +175,13 @@ public class Main {
 			LocalTime hF = heureFin(heurD, PeriodeHoraire);
 			boolean testHf = testHF(hF);
 			System.out.println(testHf);
+
 			if (testHf) {
 				addPost(heurD, hF, indexPostD);
 			} else {
 				System.out.println("la salle des jeux n'est pas disponible dans cette periode");
 			}
+
 			System.out.println("7 - Prénom : ");
 			String prenom = sc.next();
 			newValue.add(prenom);
@@ -184,6 +192,7 @@ public class Main {
 
 			comp++;
 			String codeJoueur = nom + comp;
+
 			newValue.add(String.valueOf(codeJoueur));
 			personList.add(newValue);
 			System.out.println(personList);
@@ -288,14 +297,25 @@ public class Main {
 		// TODO Auto-generated method stub
 		// menu();
 
-		System.out.println("");
+		// System.out.println("");
 
-		for (int index = 0; index < cmp; index++) {
-			System.out.println("Found at " + postsAvailable[index]);
+		// for (int index = 0; index < cmp; index++) {
+		// System.out.println("Found at " + postsAvailable[index]);
 
+		// }
+
+		// addNewGamer();
+
+		//new Timer().
+		String leftAlignFormat = "| %-15s | %-4d |%n";
+
+		System.out.format("+-----------------+------+%n");
+		System.out.format("| Column name     | ID   |%n");
+		System.out.format("+-----------------+------+%n");
+		for (int i = 0; i < 5; i++) {
+		    System.out.format(leftAlignFormat, "some data" + i, i * i);
 		}
+		System.out.format("+-----------------+------+%n");
 
-		addNewGamer();
-	}
-
+}
 }
