@@ -9,10 +9,11 @@ import java.util.TimerTask;
 
 public class Main {
 
-
+	static int nbP = 7;
 	static String[] posts = { "POSTE 1:Xbox", "POSTE 2:Xbox", "POSTE 3:Xbox", "POSTE 4:PS5", "POSTE 5:PS5",
 			"POSTE 6:Nintendo", "POSTE 7:Nintendo" };
-	static LocalTime[] heureFin = new LocalTime[100];
+	static String[] heureFin = new String[100];
+	static int[] indexPostNAv = new int[100];
 	static int heurff = 0;
 	
 	static Boolean[] postsAvailibility = { true, true, true, true, true, true, true };
@@ -73,22 +74,18 @@ public class Main {
           //int counter = 0;
            @Override
            public void run() {
+        	   
         	  //System.out.println("ok");
-        	   int a = 1;
+        	   
         	   for(int i=0; i<heureFin.length; i++) {
         		   LocalTime ldt = LocalTime.now();
         	    	DateTimeFormatter dft = DateTimeFormatter.ofPattern("HH:mm");
         	   if((ldt.format(dft)).equals(heureFin[i])) {
-        		   System.out.println("la duree de jeu est finit");
-        	   }
+        		   postsAvailibility[indexPostNAv[i]] = true; 		   
         	   }
         	   
-               //call the method
-               //counter++;
-               //if (counter >= 20){
-                // timer.cancel();
-               //}
-              // System.out.println("yep");
+        	   }
+        	
            }
         }, begin, timeInterval);
 
@@ -155,6 +152,7 @@ public class Main {
 		
 	//}
 
+	static int indexPostNotAv;
 	public static void addPost(LocalTime heurD, LocalTime heurF, int indexPost) {
 		dureePost=new ArrayList<String>();
 		dureePost.add(heurD + "");
@@ -163,11 +161,15 @@ public class Main {
 		listDureePost.add(dureePost);
 		System.out.println(listDureePost);
 		postsAvailibility[indexPost] = false;
-		heureFin[heurff] = heurF;
-		//System.out.println(heureFin[heurff]);
+		heureFin[heurff] = heurF.toString();
+		indexPostNAv[heurff] = indexPost;
+		System.out.println(heureFin[heurff]);
+		System.out.println(indexPostNAv[heurff]);
 		heurff++;
-	
+		
 	}
+
+	
 
 	public static LocalTime heureFin(LocalTime heurD, int duree) {
 		LocalTime hF = heurD.plusMinutes(duree);
@@ -214,7 +216,7 @@ public class Main {
 			String jeuChoisi = choixJeu(menuDesJeux());
 			newValue.add(jeuChoisi);
 			int array[] = getindexPost(jeuChoisi);
-			int indexPostD = postDispo(array);
+			indexPostD = postDispo(array);
 			newValue.add(posts[indexPostD]);
 			LocalTime hF = heureFin(heurD, PeriodeHoraire);
 			 testHf = testHF(hF);
@@ -239,7 +241,7 @@ public class Main {
 			newValue.add(String.valueOf(codeJoueur));
 			personList.add(newValue);
 			System.out.println(personList);
-
+			System.out.println(nbP);
 			
 			//payMontant(choixDuree);
 			String autreJoueur;
