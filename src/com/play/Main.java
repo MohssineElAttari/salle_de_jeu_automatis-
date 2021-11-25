@@ -1,33 +1,30 @@
 package com.play;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class Main {
 
+
 	static String[] posts = { "POSTE 1:Xbox", "POSTE 2:Xbox", "POSTE 3:Xbox", "POSTE 4:PS5", "POSTE 5:PS5",
 			"POSTE 6:Nintendo", "POSTE 7:Nintendo" };
-
+	static LocalTime[] heureFin = new LocalTime[100];
+	static int heurff = 0;
+	
 	static Boolean[] postsAvailibility = { true, true, true, true, true, true, true };
 
 	static String[] gamesByPost = { "FIFA:PES 2020", "Tarazan:PES 2020:Counter-Strike", "FIFA", "FIFA:Counter-Strike",
 			"PES 2020:Counter-Strike", "FIFA:Counter-Strike", "PES 2020:Counter-Strike" };
-
 	public static ArrayList<String> dureePost;
-
 	static ArrayList<ArrayList<String>> listDureePost = new ArrayList<ArrayList<String>>();
-
 	static int postsAvailable[] = new int[7];
-
 	static int cmp;
 
 	public static ArrayList<String> newValue;
-
 	static ArrayList<ArrayList<String>> personList = new ArrayList<ArrayList<String>>();
 
 	public static int[] getindexPost(String nameGame) {
@@ -48,7 +45,7 @@ public class Main {
 			if (postsAvailibility[postsAvailable[index]] == true) {
 				postDispo = postsAvailable[index];
 				// System.out.println(postsAvailibility[postsAvailable[index]]);
-
+				
 				// postsAvailable = new int[7];
 				// System.out.pr
 				// System.out.print(postDispo);
@@ -60,6 +57,47 @@ public class Main {
 		}
 		return postDispo;
 
+	}
+
+//update
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// menu();
+		
+		Timer timer = new Timer();
+        int begin = 0;
+        int timeInterval = 1000;
+    	
+    	//System.out.println(dft.format(ldt));
+        timer.schedule(new TimerTask() {
+          //int counter = 0;
+           @Override
+           public void run() {
+        	  //System.out.println("ok");
+        	   int a = 1;
+        	   for(int i=0; i<heureFin.length; i++) {
+        		   LocalTime ldt = LocalTime.now();
+        	    	DateTimeFormatter dft = DateTimeFormatter.ofPattern("HH:mm");
+        	   if((ldt.format(dft)).equals(heureFin[i])) {
+        		   System.out.println("la duree de jeu est finit");
+        	   }
+        	   }
+        	   
+               //call the method
+               //counter++;
+               //if (counter >= 20){
+                // timer.cancel();
+               //}
+              // System.out.println("yep");
+           }
+        }, begin, timeInterval);
+
+		for (int index = 0; index < cmp; index++) {
+			System.out.println("Found at " + postsAvailable[index]);
+
+		}
+
+		addNewGamer();
 	}
 
 	static String valider = "";
@@ -113,16 +151,22 @@ public class Main {
 		}
 		return duree;
 	}
+	//public static void modifDisponibilite() {
+		
+	//}
 
 	public static void addPost(LocalTime heurD, LocalTime heurF, int indexPost) {
-		dureePost = new ArrayList<String>();
+		dureePost=new ArrayList<String>();
 		dureePost.add(heurD + "");
 		dureePost.add(heurF + "");
 		dureePost.add(indexPost + "");
 		listDureePost.add(dureePost);
 		System.out.println(listDureePost);
 		postsAvailibility[indexPost] = false;
-
+		heureFin[heurff] = heurF;
+		//System.out.println(heureFin[heurff]);
+		heurff++;
+	
 	}
 
 	public static LocalTime heureFin(LocalTime heurD, int duree) {
@@ -133,19 +177,18 @@ public class Main {
 	}
 
 	public static Boolean testHF(LocalTime hF) {
-
 		LocalTime startA = LocalTime.of(9, 00);
-		LocalTime stopA = LocalTime.of(12, 01);
-		LocalTime startB = LocalTime.of(14, 00);
-		LocalTime stopB = LocalTime.of(20, 01);
-
-		Boolean containsNow = (((hF.isAfter(startA)) && (hF.isBefore(stopA)))
-				|| ((hF.isAfter(startB)) && (hF.isBefore(stopB))));
-
+        LocalTime stopA = LocalTime.of(12, 01);
+        LocalTime startB = LocalTime.of(14, 00);
+        LocalTime stopB = LocalTime.of(20, 01);
+        Boolean containsNow = (((hF.isAfter(startA)) && (hF.isBefore(stopA)))
+                || ((hF.isAfter(startB)) && (hF.isBefore(stopB))));
+		System.out.println(containsNow);
 		return containsNow;
 
 	}
-
+	static boolean testHf;
+	static int indexPostD;
 	public static void addNewGamer() {
 		String reponse;
 		int reponse1;
@@ -156,6 +199,7 @@ public class Main {
 			// System.out.println(personList);
 
 			System.out.println("***** ajouter au nouveux joueur *****");
+			do {
 			System.out.println("1 - Entrer l'heure de début : ");
 			int heureD = sc.nextInt();
 			System.out.println("2 - Entrer les minutes de début : ");
@@ -173,15 +217,15 @@ public class Main {
 			int indexPostD = postDispo(array);
 			newValue.add(posts[indexPostD]);
 			LocalTime hF = heureFin(heurD, PeriodeHoraire);
-			boolean testHf = testHF(hF);
-			System.out.println(testHf);
-
-			if (testHf) {
-				addPost(heurD, hF, indexPostD);
-			} else {
-				System.out.println("la salle des jeux n'est pas disponible dans cette periode");
+			 testHf = testHF(hF);
+			if(testHf) {
+				addPost(heurD,hF,indexPostD);
 			}
-
+			else {
+				System.out.println("la salle des jeux n'est pas disponible dans cette periode");
+				newValue.clear();
+			}
+			}while(!testHf);
 			System.out.println("7 - Prénom : ");
 			String prenom = sc.next();
 			newValue.add(prenom);
@@ -189,15 +233,15 @@ public class Main {
 			String nom = sc.next();
 			newValue.add(nom);
 			System.out.println(posts[indexPostD] + " effectuee par le joueur " + prenom);
-
+			
 			comp++;
 			String codeJoueur = nom + comp;
-
 			newValue.add(String.valueOf(codeJoueur));
 			personList.add(newValue);
 			System.out.println(personList);
 
-			// payMontant(choixDuree);
+			
+			//payMontant(choixDuree);
 			String autreJoueur;
 			System.out.println("tu veux ajouter nouveau joueur ==> repondre par oui ou non");
 
@@ -292,30 +336,4 @@ public class Main {
 
 	}
 
-//update
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		// menu();
-
-		// System.out.println("");
-
-		// for (int index = 0; index < cmp; index++) {
-		// System.out.println("Found at " + postsAvailable[index]);
-
-		// }
-
-		// addNewGamer();
-
-		//new Timer().
-		String leftAlignFormat = "| %-15s | %-4d |%n";
-
-		System.out.format("+-----------------+------+%n");
-		System.out.format("| Column name     | ID   |%n");
-		System.out.format("+-----------------+------+%n");
-		for (int i = 0; i < 5; i++) {
-		    System.out.format(leftAlignFormat, "some data" + i, i * i);
-		}
-		System.out.format("+-----------------+------+%n");
-
-}
 }
